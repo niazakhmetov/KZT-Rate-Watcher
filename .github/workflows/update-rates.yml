@@ -1,56 +1,60 @@
-
 name: Обновление Курсов (CDI)
 
-# Контролирует, когда рабочий процесс будет запущен
 on:
-  # Замена стандартных CI-триггеров (push/pull_request)
-  # на триггер по расписанию для ежедневного обновления данных.
-  # Ежедневно в 07:00 UTC+5 (02:00 UTC).
   schedule:
-    - cron: '0 2 * * *' 
-  
-  # Позволяет Вам запустить этот рабочий процесс вручную через вкладку Actions
+    # Ежедневно в 07:00 по времени Казахстана (02:00 UTC)
+    - cron: '0 2 * * *'
   workflow_dispatch:
 
-# Рабочий процесс состоит из одного задания
 jobs:
-  # Называем задание 'update-data' вместо стандартного 'build'
   update-data:
-    # Тип раннера, на котором будет запущено задание
     runs-on: ubuntu-latest
-    
-    # Разрешение на запись для GITHUB_TOKEN (решает проблему 403)
-    permissions:
-      contents: write 
-      pull-requests: read
-      
-    # Шаги представляют собой последовательность задач
-    steps:
-      # Шаг 1: Получение репозитория (Аналогично: uses: actions/checkout@v4)
-      - name: 1. Клонирование репозитория
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }} 
 
-      # Шаг 2: Настройка Python
-      - name: 2. Настройка Python 3.x
+    # Разрешение на запись нужно для автокоммита
+    permissions:
+      contents: write
+
+    steps:
+      # 1. Клонирование репозитория
+      - name: 1. Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Кэш pip (ускорение ×3)
+      - name: 2. Cache pip packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ hashFiles('requirements.txt') }}
+
+      # 3. Настройка Python
+      - name: 3. Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
-          
-      # Шаг 3: Установка зависимостей (Аналогично: Run a one-line script)
-      - name: 3. Установка зависимостей (requests)
+          python-version: '3.11'
+
+      # 4. Установка зависимостей
+      - name: 4. Install dependencies
         run: pip install -r requirements.txt
-        
-      # Шаг 4: Запуск скрипта (Основная логика)
-      - name: 4. Запуск скрипта парсинга НБК
+
+      # 5. Запуск скрипта парсинга
+      - name: 5. Run NBK parser script
         run: python src/parser_script.py
-        
-      # Шаг 5: Коммит обновленного JSON (Аналогично: Run a multi-line script - для деплоя)
-      - name: 5. Автоматический коммит и пуш данных
+
+      # 6. Проверка, обновился ли файл
+      - name: 6. Validate output
+        run: |
+          if git status --porcelain | grep -q "data/latest_rates.json"; then
+            echo "✔ Файл обновлён, продолжаем."
+          else
+            echo "❌ Скрипт НЕ обновил data/latest_rates.json"
+            exit 1
+          fi
+
+      # 7. Автоматический коммит и пуш
+      - name: 7. Commit & push updated rates
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_user_name: KZT Rates Bot
           commit_user_email: actions-bot@github.com
-          commit_message: 'Automated: Update KZT exchange rates data'
-          file_pattern: 'data/latest_rates.json'
+          commit_message: "Automated: Update KZT exchange rates data"
+          file_pattern: "data/latest_rates.json"
