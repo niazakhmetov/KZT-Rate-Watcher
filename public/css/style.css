@@ -1,0 +1,174 @@
+/* ========================================= */
+/* 1. Сброс стилей и Базовые настройки */
+/* ========================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    line-height: 1.6;
+    background-color: #f4f7f6; /* Светло-серый фон */
+    color: #333;
+    padding: 20px;
+}
+
+/* ========================================= */
+/* 2. Шапка и Элементы управления */
+/* ========================================= */
+header {
+    background-color: #004a77; /* Основной цвет (темно-синий, похожий на корпоративные цвета) */
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    font-size: 1.8em;
+    margin-bottom: 5px;
+}
+
+header p {
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+/* Элементы управления (Поиск) */
+.controls {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#search-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+/* ========================================= */
+/* 3. Стили для Таблицы */
+/* ========================================= */
+#rates-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+#rates-table th, 
+#rates-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+#rates-table th {
+    background-color: #e9ecef; /* Светло-серый фон для заголовков */
+    color: #495057;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.85em;
+}
+
+#rates-table tbody tr:hover {
+    background-color: #f1f1f1; /* Эффект при наведении */
+}
+
+/* Стили для индикаторов изменения (UP/DOWN) */
+.index-up {
+    color: #28a745; /* Зеленый */
+    font-weight: bold;
+}
+
+.index-down {
+    color: #dc3545; /* Красный */
+    font-weight: bold;
+}
+
+.index-none {
+    color: #6c757d; /* Серый */
+}
+
+/* ========================================= */
+/* 4. Футер */
+/* ========================================= */
+footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+    font-size: 0.8em;
+    color: #6c757d;
+}
+
+/* ========================================= */
+/* 5. АДАПТИВНЫЙ ДИЗАЙН (Media Queries) */
+/* ========================================= */
+
+/* Стили для экранов шириной 768px и менее (Планшеты/Мобильные) */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    /* Таблица: Переключаем в режим, где ячейки ведут себя как блоки */
+    #rates-table, 
+    #rates-body, 
+    #rates-body tr, 
+    #rates-body td {
+        display: block;
+        width: 100%; /* Занимаем всю ширину */
+    }
+
+    /* Скрываем заголовки таблицы, так как они будут повторяться в каждой строке */
+    #rates-table thead {
+        display: none;
+    }
+
+    /* Настраиваем каждую строку как отдельную "карточку" */
+    #rates-body tr {
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        background-color: white;
+    }
+
+    /* Настраиваем каждую ячейку данных */
+    #rates-body td {
+        /* Добавляем заголовок из атрибута data-label, который будет прописан в HTML через JS */
+        position: relative;
+        padding-left: 50%; /* Освобождаем место для "виртуального" заголовка */
+        text-align: right;
+        font-size: 0.9em;
+    }
+
+    /* Создаем "виртуальный" заголовок на основе данных */
+    #rates-body td::before {
+        content: attr(data-label); /* Используем значение data-label из HTML */
+        position: absolute;
+        left: 15px;
+        width: calc(50% - 30px);
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        color: #495057;
+    }
+
+    /* Убираем нижнюю границу у последней ячейки в карточке */
+    #rates-body tr td:last-child {
+        border-bottom: none;
+    }
+}
