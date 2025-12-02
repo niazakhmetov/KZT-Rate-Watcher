@@ -1,6 +1,6 @@
 // --- КОНСТАНТЫ ---
 // Путь к JSON-файлу с курсами (относительно корня GitHub Pages)
-const RATES_JSON_URL = '/KZT-Rate-Watcher/data/latest_rates.json';
+const RATES_JSON_URL = '/data/latest_rates.json';
 
 // Элементы DOM
 const ratesBody = document.getElementById('rates-body');
