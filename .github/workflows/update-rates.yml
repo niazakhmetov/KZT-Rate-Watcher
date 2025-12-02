@@ -2,29 +2,27 @@
 name: Автоматическое Обновление Курсов НБК
 
 on:
-  # 1. Запуск по расписанию (Cron Job)
-  # Ежедневно в 02:00 UTC, что соответствует 07:00 UTC+5
+  # 1. Запуск по расписанию (Ежедневно в 07:00 UTC+5)
   schedule:
-    - cron: '0 2 * * *'
+    - cron: '0 2 * * *' 
   
   # 2. Запуск вручную через интерфейс GitHub Actions
   workflow_dispatch:
 
 jobs:
   update-rates:
-    # Запускаем на стандартном образе Linux
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # Разрешение на запись (commit и push)
-      pull-requests: read
     
+    # Разрешение на запись для GITHUB_TOKEN (решает проблему 403)
+    permissions:
+      contents: write 
+      pull-requests: read # Оставляем для полноты, хотя для коммита не критично
+      
     steps:
       # Шаг 1: Клонирование репозитория
       - name: Checkout repository
         uses: actions/checkout@v4
-        # Необходимо для записи изменений обратно в репозиторий
         with:
-          # Используем токен, чтобы позволить auto-commit
           token: ${{ secrets.GITHUB_TOKEN }} 
 
       # Шаг 2: Настройка окружения Python
@@ -33,7 +31,7 @@ jobs:
         with:
           python-version: '3.x'
           
-      # Шаг 3: Установка зависимостей (requests)
+      # Шаг 3: Установка зависимостей
       - name: Install dependencies
         run: pip install -r requirements.txt
         
@@ -42,11 +40,13 @@ jobs:
         run: python src/parser_script.py
         
       # Шаг 5: Автоматический коммит обновленного JSON-файла
-      # Эта Action проверяет, изменился ли data/latest_rates.json, и, если да,
-      # автоматически коммитит его обратно в ветку.
       - name: Commit and push updated JSON data
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: 'Automated: Update KZT exchange rates data'
-          files: 'data/latest_rates.json' # Указываем путь к файлу, который нужно закоммитить
-          # force: true # Не рекомендуется, но может потребоваться в некоторых edge-кейсах
+          # Установка имени пользователя для коммита
+          commit_user_name: KZT Rates Bot
+          # Установка почты для коммита
+          commit_user_email: actions-bot@github.com
+          commit_message: '🤖 Automated: Update KZT exchange rates data'
+          # Используем правильный параметр file_pattern (устраняет Warning)
+          file_pattern: 'data/latest_rates.json'
