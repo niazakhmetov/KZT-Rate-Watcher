@@ -11,8 +11,6 @@ OUTPUT_FILENAME = 'data/latest_rates.json'
 def log_status(success: bool, message: str):
     """
     Фиксирует статус импорта данных с точной датой и временем.
-    В реальном приложении это отправлялось бы в лог-файл или систему мониторинга (например, ElasticSearch).
-    Здесь выводим в консоль (которую GitHub Actions фиксирует).
     """
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     status = "УСПЕШНО" if success else "НЕУСПЕШНО"
@@ -20,43 +18,31 @@ def log_status(success: bool, message: str):
 
 def get_target_date() -> str:
     """
-    Определяет дату для запроса. 
-    
-    НБК обычно публикует курсы на следующий рабочий день во второй половине дня.
-    Чтобы увеличить шанс получить актуальный курс, запрашиваем:
-    1. 'Завтрашний' курс (на следующий день). 
-    2. Если 'завтрашний' курс не найден (нет данных), переходим к 'сегодняшнему'.
-    
-    Для простоты скрипта, запущенного ежедневно: 
-    запрашиваем завтрашний день (в надежде, что он уже опубликован).
+    Определяет дату для запроса: **текущий день**.
     """
-    # Запрос на завтрашнюю дату (наиболее вероятный актуальный курс)
-    target_date = datetime.now() + timedelta(days=1)
+    # Запрос на ТЕКУЩУЮ дату
+    target_date = datetime.now()
     return target_date.strftime("%d.%m.%Y")
 
 def fetch_and_parse_rates(date_str: str) -> Tuple[Optional[Dict], Optional[List[Dict]]]:
     """
     Загружает курсы валют НБК для указанной даты и парсит XML.
-    
-    Возвращает: (metadata, rates_list)
-    metadata: Словарь с общими данными о файле (генератор, дата, описание).
-    rates_list: Список словарей с данными о курсах.
     """
     url = f"{NBK_RATES_URL}{date_str}"
     
+    # ... (код для запроса и обработки ошибок requests остается прежним) ...
+
     try:
         response = requests.get(url, timeout=15)
         response.raise_for_status() 
     except requests.exceptions.RequestException as e:
         log_status(False, f"Ошибка при HTTP-запросе {date_str}: {e}")
         return None, None
-
+    
     try:
-        # XML-декларация и первая строка игнорируются парсером ET.fromstring()
         root = ET.fromstring(response.content)
         rates_list = []
         
-        # 2. Сбор метаданных
         metadata = {
             "date": root.find('date').text if root.find('date') is not None else date_str,
             "title": root.find('title').text,
@@ -67,27 +53,46 @@ def fetch_and_parse_rates(date_str: str) -> Tuple[Optional[Dict], Optional[List[
             "retrieved_at": datetime.now().isoformat() # Время фактической загрузки
         }
         
-        # Обработка случая "нет информации"
-        if root.find('info') is not None and "информации нет" in root.find('info').text:
+        # 1. Проверка на сообщение "информации нет"
+        info_tag = root.find('info')
+        if info_tag is not None and "информации нет" in info_tag.text:
             log_status(False, f"Данные на {metadata['date']} еще не опубликованы.")
-            return metadata, [] # Возвращаем метаданные, но пустой список курсов
+            return metadata, rates_list # rates_list будет пустым []
 
-        # 3. Сбор данных по валютам
+        # 2. Парсинг курсов
         for item in root.findall('item'):
+            # ... (логика парсинга item остается прежней) ...
+            fullname = item.find('fullname').text
+            code = item.find('title').text
+            rate_text = item.find('description').text
+            quant_text = item.find('quant').text
+            index_text = item.find('index').text
+            change_text = item.find('change').text
+
+            try:
+                rate = float(rate_text) if rate_text else 0.0
+                quant = int(quant_text) if quant_text else 1
+                change = float(change_text) if change_text else 0.0
+            except (ValueError, TypeError):
+                continue
+
             rate_data = {
-                # 3.1. Используем все поля
-                "fullname": item.find('fullname').text,
-                "code": item.find('title').text,             
-                # description - это курс
-                "rate": float(item.find('description').text),
-                "quant": int(item.find('quant').text),
-                "index": item.find('index').text if item.find('index') is not None else "NONE",
-                "change": float(item.find('change').text) if item.find('change').text else 0.0
+                "fullname": fullname.strip(),
+                "code": code.strip(),
+                "rate": rate,
+                "quant": quant,
+                "index": index_text.strip() if index_text else "NONE",
+                "change": change
             }
             rates_list.append(rate_data)
         
-        log_status(True, f"Успешно спарсено {len(rates_list)} курсов на дату {metadata['date']}.")
-        return metadata, rates_list
+        # Проверка, что были спарсены фактические курсы
+        if len(rates_list) > 0:
+            log_status(True, f"Успешно спарсено {len(rates_list)} курсов на дату {metadata['date']}.")
+            return metadata, rates_list
+        else:
+            log_status(False, f"XML-файл не содержит курсов на {metadata['date']}.")
+            return metadata, rates_list
 
     except ET.ParseError as e:
         log_status(False, f"Ошибка при парсинге XML: {e}")
@@ -98,13 +103,13 @@ def fetch_and_parse_rates(date_str: str) -> Tuple[Optional[Dict], Optional[List[
 
 def save_rates_to_json(metadata: Dict, rates_data: List[Dict], filename: str):
     """
-    Сохраняет метаданные и курсы в единый JSON-файл.
+    Сохраняет метаданные и курсы в единый JSON-файл ТОЛЬКО ЕСЛИ ЕСТЬ ДАННЫЕ.
     """
-    if not rates_data and "информации нет" in metadata.get('description', ''):
-        log_status(False, f"Не сохраняем JSON, так как актуальные данные отсутствуют.")
+    # 💥 ИСПРАВЛЕНИЕ: Строгая проверка на наличие курсов 💥
+    if not rates_data or len(rates_data) == 0:
+        log_status(True, f"Сохранение JSON-файла пропущено, так как список курсов пуст.")
         return
 
-    # Структура для JSON-файла
     final_data = {
         "metadata": metadata,
         "rates": rates_data
@@ -123,13 +128,8 @@ if __name__ == "__main__":
     
     metadata, current_rates = fetch_and_parse_rates(target_date_str)
     
+    # 💥 Упрощенная логика запуска 💥
     if metadata and current_rates is not None:
         save_rates_to_json(metadata, current_rates, OUTPUT_FILENAME)
-    elif metadata and not current_rates:
-        # Если метаданные есть, но курсов нет (случай "нет информации"),
-        # нужно принять решение: сохранять старый файл или не обновлять его.
-        # В данном случае, мы не вызываем save_rates_to_json, если курсов нет, 
-        # чтобы сохранить предыдущий актуальный файл.
-        log_status(True, "Обновление JSON-файла пропущено, так как данных на целевую дату нет.")
     else:
         log_status(False, "Не удалось получить метаданные. Обновление JSON-файла пропущено.")
