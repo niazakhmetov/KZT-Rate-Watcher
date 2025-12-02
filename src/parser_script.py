@@ -6,7 +6,7 @@ from typing import List, Dict, Optional, Tuple
 
 # --- КОНСТАНТЫ ---
 NBK_RATES_URL = "https://nationalbank.kz/rss/get_rates.cfm?fdate="
-OUTPUT_FILENAME = 'public/data/latest_rates.json'
+OUTPUT_FILENAME = 'data/latest_rates.json'
 
 def log_status(success: bool, message: str):
     """
