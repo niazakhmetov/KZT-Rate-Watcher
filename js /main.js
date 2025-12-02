@@ -1,6 +1,12 @@
 // --- КОНСТАНТЫ ---
-// Путь к JSON-файлу с курсами (относительно корня GitHub Pages)
-const RATES_JSON_URL = '/data/latest_rates.json';
+// Автоматическое вычисление базового пути (работает и для user.github.io/repo и для user.github.io)
+const getBasePath = () => {
+    // pathname: "/KZT-Rate-Watcher/" или "/"
+    const parts = window.location.pathname.split('/').filter(Boolean);
+    // если есть 1-й сегмент — это имя репозитория в GitHub Pages, иначе корень
+    return parts.length > 0 ? `/${parts[0]}` : '';
+};
+const RATES_JSON_URL = `${getBasePath()}/data/latest_rates.json`;
 
 // Элементы DOM
 const ratesBody = document.getElementById('rates-body');
