@@ -143,5 +143,5 @@ async function init() {
     }
 }
 
-// Запуск инициализации при загрузке страницы
-document.addEventListener('DOMContentLoaded', init);
+// Прямой запуск инициализации после загрузки скрипта
+init();
