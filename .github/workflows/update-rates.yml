@@ -37,7 +37,7 @@ jobs:
         
       # Шаг 4: Запуск скрипта для парсинга и генерации JSON
       - name: Run Python parser script
-        run: python src/python/parser_script.py
+        run: python src/parser_script.py
         
       # Шаг 5: Автоматический коммит обновленного JSON-файла
       # Эта Action проверяет, изменился ли data/latest_rates.json, и, если да,
