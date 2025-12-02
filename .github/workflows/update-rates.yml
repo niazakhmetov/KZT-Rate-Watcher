@@ -53,4 +53,4 @@ jobs:
           commit_user_name: KZT Rates Bot
           commit_user_email: actions-bot@github.com
           commit_message: 'Automated: Update KZT exchange rates data'
-          file_pattern: 'publicdata/latest_rates.json'
+          file_pattern: 'public/data/latest_rates.json'
