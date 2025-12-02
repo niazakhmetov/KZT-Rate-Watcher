@@ -3,7 +3,7 @@ name: Обновление Курсов (CDI)
 
 # Контролирует, когда рабочий процесс будет запущен
 on:
-  # 💥 Замена стандартных CI-триггеров (push/pull_request)
+  # Замена стандартных CI-триггеров (push/pull_request)
   # на триггер по расписанию для ежедневного обновления данных.
   # Ежедневно в 07:00 UTC+5 (02:00 UTC).
   schedule:
@@ -19,7 +19,7 @@ jobs:
     # Тип раннера, на котором будет запущено задание
     runs-on: ubuntu-latest
     
-    # 💥 Разрешение на запись для GITHUB_TOKEN (решает проблему 403)
+    # Разрешение на запись для GITHUB_TOKEN (решает проблему 403)
     permissions:
       contents: write 
       pull-requests: read
@@ -52,5 +52,5 @@ jobs:
         with:
           commit_user_name: KZT Rates Bot
           commit_user_email: actions-bot@github.com
-          commit_message: '🤖 Automated: Update KZT exchange rates data'
-          file_pattern: 'data/latest_rates.json'
+          commit_message: 'Automated: Update KZT exchange rates data'
+          file_pattern: 'publicdata/latest_rates.json'
