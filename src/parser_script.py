@@ -33,7 +33,7 @@ def fetch_and_parse_rates(date_str: str) -> Tuple[Optional[Dict], Optional[List[
     # ... (код для запроса и обработки ошибок requests остается прежним) ...
 
     try:
-        response = requests.get(url, timeout=15)
+        response = requests.get(url, timeout=45)
         response.raise_for_status() 
     except requests.exceptions.RequestException as e:
         log_status(False, f"Ошибка при HTTP-запросе {date_str}: {e}")
