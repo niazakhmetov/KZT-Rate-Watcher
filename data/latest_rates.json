@@ -1,12 +1,12 @@
 {
     "metadata": {
-        "date": "27.12.2025",
+        "date": "28.12.2025",
         "title": "Official exchange rates of National Bank of Republic Kazakhstan",
         "generator": "Alternate RSS Builder",
         "link": "www.nationalbank.kz",
         "description": "Official exchange rates of National Bank of Republic Kazakhstan",
         "copyright": "www.nationalbank.kz",
-        "retrieved_at": "2025-12-27T03:53:05.588620"
+        "retrieved_at": "2025-12-28T04:04:17.762383"
     },
     "rates": [
         {
@@ -14,312 +14,312 @@
             "code": "AUD",
             "rate": 338.23,
             "quant": 1,
-            "index": "DOWN",
-            "change": -5.25
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "АЗЕРБАЙДЖАНСКИЙ МАНАТ",
             "code": "AZN",
             "rate": 297.7,
             "quant": 1,
-            "index": "DOWN",
-            "change": -4.84
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "АРМЯНСКИЙ ДРАМ",
             "code": "AMD",
             "rate": 13.31,
             "quant": 10,
-            "index": "DOWN",
-            "change": -0.17
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "БЕЛОРУССКИЙ РУБЛЬ",
             "code": "BYN",
             "rate": 174.2,
             "quant": 1,
-            "index": "DOWN",
-            "change": -2.83
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "БРАЗИЛЬСКИЙ РЕАЛ",
             "code": "BRL",
             "rate": 91.41,
             "quant": 1,
-            "index": "DOWN",
-            "change": -1.49
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "ВЕНГЕРСКИХ ФОРИНТОВ",
             "code": "HUF",
             "rate": 15.29,
             "quant": 10,
-            "index": "DOWN",
-            "change": -0.25
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "ГОНКОНГСКИЙ ДОЛЛАР",
             "code": "HKD",
             "rate": 64.93,
             "quant": 1,
-            "index": "DOWN",
-            "change": -1.03
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "ГРУЗИНСКИЙ ЛАРИ",
             "code": "GEL",
             "rate": 189.41,
             "quant": 1,
-            "index": "DOWN",
-            "change": -3.01
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "ДАТСКАЯ КРОНА",
             "code": "DKK",
             "rate": 79.57,
             "quant": 1,
-            "index": "DOWN",
-            "change": -1.3
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "ДИРХАМ ОАЭ",
             "code": "AED",
             "rate": 137.41,
             "quant": 1,
-            "index": "DOWN",
-            "change": -2.23
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "ДОЛЛАР США",
             "code": "USD",
             "rate": 504.6,
             "quant": 1,
-            "index": "DOWN",
-            "change": -8.21
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "ЕВРО",
             "code": "EUR",
             "rate": 594.27,
             "quant": 1,
-            "index": "DOWN",
-            "change": -9.92
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "ИНДИЙСКАЯ РУПИЯ",
             "code": "INR",
             "rate": 5.61,
             "quant": 1,
-            "index": "DOWN",
-            "change": -0.11
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "ИРАНСКИЙ РИАЛ",
             "code": "IRR",
             "rate": 12.0,
             "quant": 1000,
-            "index": "DOWN",
-            "change": -0.2
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "КАНАДСКИЙ ДОЛЛАР",
             "code": "CAD",
             "rate": 368.86,
             "quant": 1,
-            "index": "DOWN",
-            "change": -6.11
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "КИТАЙСКИЙ ЮАНЬ",
             "code": "CNY",
             "rate": 72.01,
             "quant": 1,
-            "index": "DOWN",
-            "change": -1.19
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "КУВЕЙТСКИЙ ДИНАР",
             "code": "KWD",
             "rate": 1642.74,
             "quant": 1,
-            "index": "DOWN",
-            "change": -27.27
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "КЫРГЫЗСКИЙ СОМ",
             "code": "KGS",
             "rate": 5.77,
             "quant": 1,
-            "index": "DOWN",
-            "change": -0.09
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "МАЛАЗИЙСКИЙ РИНГГИТ",
             "code": "MYR",
             "rate": 124.75,
             "quant": 1,
-            "index": "DOWN",
-            "change": -2.09
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "МЕКСИКАНСКИЙ ПЕСО",
             "code": "MXN",
             "rate": 28.16,
             "quant": 1,
-            "index": "DOWN",
-            "change": -0.47
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "МОЛДАВСКИЙ ЛЕЙ",
             "code": "MDL",
             "rate": 30.49,
             "quant": 1,
-            "index": "DOWN",
-            "change": -0.4
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "НОРВЕЖСКАЯ КРОНА",
             "code": "NOK",
             "rate": 50.37,
             "quant": 1,
-            "index": "DOWN",
-            "change": -1.07
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "ПОЛЬСКИЙ ЗЛОТЫЙ",
             "code": "PLN",
             "rate": 140.77,
             "quant": 1,
-            "index": "DOWN",
-            "change": -2.53
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "РИЯЛ САУДОВСКОЙ АРАВИИ",
             "code": "SAR",
             "rate": 134.54,
             "quant": 1,
-            "index": "DOWN",
-            "change": -2.19
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "РОССИЙСКИЙ РУБЛЬ",
             "code": "RUB",
             "rate": 6.48,
             "quant": 1,
-            "index": "DOWN",
-            "change": -0.09
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "СДР",
             "code": "XDR",
             "rate": 691.98,
             "quant": 1,
-            "index": "DOWN",
-            "change": -11.26
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "СИНГАПУРСКИЙ ДОЛЛАР",
             "code": "SGD",
             "rate": 393.11,
             "quant": 1,
-            "index": "DOWN",
-            "change": -6.55
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "ТАДЖИКСКИЙ СОМОНИ",
             "code": "TJS",
             "rate": 55.09,
             "quant": 1,
-            "index": "DOWN",
-            "change": -0.71
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "ТАЙСКИЙ БАТ",
             "code": "THB",
             "rate": 16.27,
             "quant": 1,
-            "index": "DOWN",
-            "change": -0.24
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "ТУРЕЦКАЯ ЛИРА",
             "code": "TRY",
             "rate": 11.8,
             "quant": 1,
-            "index": "DOWN",
-            "change": -0.18
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "УЗБЕКСКИХ СУМОВ",
             "code": "UZS",
             "rate": 4.18,
             "quant": 100,
-            "index": "DOWN",
-            "change": -0.07
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "УКРАИНСКАЯ ГРИВНА",
             "code": "UAH",
             "rate": 11.99,
             "quant": 1,
-            "index": "DOWN",
-            "change": -0.23
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "ФУНТ СТЕРЛИНГОВ СОЕДИНЕННОГО КОРОЛЕВСТВА",
             "code": "GBP",
             "rate": 680.76,
             "quant": 1,
-            "index": "DOWN",
-            "change": -12.71
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "ЧЕШСКАЯ КРОНА",
             "code": "CZK",
             "rate": 24.51,
             "quant": 1,
-            "index": "DOWN",
-            "change": -0.41
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "ШВЕДСКАЯ КРОНА",
             "code": "SEK",
             "rate": 55.01,
             "quant": 1,
-            "index": "DOWN",
-            "change": -1.07
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "ШВЕЙЦАРСКИЙ ФРАНК",
             "code": "CHF",
             "rate": 639.38,
             "quant": 1,
-            "index": "DOWN",
-            "change": -11.97
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "ЮЖНО-АФРИКАНСКИЙ РАНД",
             "code": "ZAR",
             "rate": 30.28,
             "quant": 1,
-            "index": "DOWN",
-            "change": -0.52
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "ЮЖНО-КОРЕЙСКИХ ВОН",
             "code": "KRW",
             "rate": 34.93,
             "quant": 100,
-            "index": "DOWN",
-            "change": -0.53
+            "index": "NONE",
+            "change": 0.0
         },
         {
             "fullname": "ЯПОНСКАЯ ЙЕНА",
             "code": "JPY",
             "rate": 3.23,
             "quant": 1,
-            "index": "DOWN",
-            "change": -0.06
+            "index": "NONE",
+            "change": 0.0
         }
     ]
 }
